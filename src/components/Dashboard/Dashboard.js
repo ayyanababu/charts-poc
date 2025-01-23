@@ -59,11 +59,13 @@ const Dashboard = () => {
 
   useEffect(() => {
     const handleResize = () => {
-      containerRefs.current.forEach((ref) => {
-        if (ref && ref.chart) {
-          ref.chart.reflow(); // Trigger Highcharts to recalculate sizes
-        }
-      });
+      setTimeout(() => {
+        containerRefs.current.forEach((ref) => {
+          if (ref && ref.chart) {
+            ref.chart.reflow(); // Trigger Highcharts to recalculate sizes
+          }
+        });
+      }, 500);
     };
 
     window.addEventListener("resize", handleResize); // Listen for window resize
