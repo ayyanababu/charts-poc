@@ -243,22 +243,22 @@ useEffect(() => {
               height: "80%",
               width: "80%"
             }}>
-            <HighchartsReact
-              key={item.id}
-              highcharts={Highcharts}
-              options={getChartOptions(item.type, item.name)}
-              containerProps={{
-                style: {
-                  height: "100%",
-                  width: "100%",
-                  maxHeight: "100%",
-                  maxWidth: "100%",
-                },
-              }}
-              ref={(el) => (containerRefs.current[index] = el)}
-              allowChartUpdate={true}
-            />
-              </div>
+              <HighchartsReact
+                key={item.id}
+                highcharts={Highcharts}
+                options={getChartOptions(item.type, item.name)}
+                containerProps={{
+                  style: {
+                    height: "100%",
+                    width: "100%",
+                    maxHeight: "100%",
+                    maxWidth: "100%",
+                  },
+                }}
+                ref={(el) => (containerRefs.current[index] = el)}
+                allowChartUpdate={true}
+              />
+            </div>
           </div>
         ))}
       </ReactSortable>
