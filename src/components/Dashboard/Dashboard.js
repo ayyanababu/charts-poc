@@ -238,7 +238,7 @@ useEffect(() => {
       >
         {items.map((item, index) => (
           <div key={item.id} className="sortable-item">
-            {/* <div className="drag-handle">Drag</div> */}
+            <div className="drag-handle">Drag</div>
             <HighchartsReact
               key={item.id}
               highcharts={Highcharts}
