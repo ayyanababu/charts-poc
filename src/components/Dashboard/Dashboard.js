@@ -128,7 +128,7 @@ useEffect(() => {
     switch (type) {
       case "donut":
         return {
-          chart: { type: "pie", height: "100%", reflow: true },
+          chart: { type: "pie",  reflow: true },
           title: { text: title, style: { fontSize: '10px'} },
           plotOptions: {
             pie: {
@@ -147,7 +147,7 @@ useEffect(() => {
         };
       case "combination":
         return {
-          chart: { zoomType: "xy", height: "100%", reflow: true },
+          chart: { zoomType: "xy",  reflow: true },
           title: { text: title, style: { fontSize: '10px'} },
           xAxis: { categories: ["Jan", "Feb", "Mar", "Apr"] },
           yAxis: [{ title: { text: "Values" } }],
@@ -166,7 +166,7 @@ useEffect(() => {
         };
       case "stackedBar":
         return {
-          chart: { type: "bar", height: "100%", reflow: true },
+          chart: { type: "bar",  reflow: true },
           title: { text: title, style: { fontSize: '10px'} },
           xAxis: {
             categories: ["Apples", "Oranges", "Pears", "Bananas"],
@@ -197,7 +197,7 @@ useEffect(() => {
         };
       default:
         return {
-          chart: { type, height: "100%", reflow: true },
+          chart: { type,  reflow: true },
           title: { text: title, style: { fontSize: '10px'} },
           series: [
             {
@@ -239,19 +239,26 @@ useEffect(() => {
         {items.map((item, index) => (
           <div key={item.id} className="sortable-item">
             <div className="drag-handle">Drag</div>
+            <div style={{
+              height: "80%",
+              width: "80%"
+            }}>
             <HighchartsReact
               key={item.id}
               highcharts={Highcharts}
               options={getChartOptions(item.type, item.name)}
               containerProps={{
                 style: {
-                  height: "80%",
-                  width: "80%",
+                  height: "100%",
+                  width: "100%",
+                  maxHeight: "100%",
+                  maxWidth: "100%",
                 },
               }}
               ref={(el) => (containerRefs.current[index] = el)}
               allowChartUpdate={true}
             />
+              </div>
           </div>
         ))}
       </ReactSortable>
