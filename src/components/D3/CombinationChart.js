@@ -2,6 +2,8 @@ import React, { useEffect, useRef, useState } from "react";
 import * as d3 from "d3";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
+import jsPDF from "jspdf";
+import html2canvas from "html2canvas";
 
 const generateTradingData = (
   days = 30,
@@ -22,8 +24,45 @@ const generateTradingData = (
 const D3CombinationChart = () => {
   const [loadingTime, setLoadingTime] = useState(0);
   const chartRef = useRef();
-  const data = generateTradingData(100000);
+  const data = generateTradingData(100);
   console.log('##', data);
+
+
+  const exportToPDF = async () => {
+    console.log('### eport to pdf triggered')
+    try {
+      const chartElement = chartRef.current;
+
+      if (!chartElement) {
+        console.error("Chart element not found!");
+        return;
+      }
+
+      console.log("Capturing chart for PDF...");
+
+      // Use html2canvas to capture the chart
+      const canvas = await html2canvas(chartElement, {
+        scale: 2, // High resolution
+        useCORS: true, // For cross-origin images
+        scrollX: 0,
+        scrollY: 0,
+      });
+
+      const imageData = canvas.toDataURL("image/png");
+
+      // Generate the PDF with jsPDF
+      const pdf = new jsPDF("landscape", "mm", "a4");
+      const pdfWidth = pdf.internal.pageSize.getWidth();
+      const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+
+      pdf.addImage(imageData, "PNG", 0, 0, pdfWidth, pdfHeight);
+      pdf.save("D3_Combination_Chart.pdf");
+
+      console.log("PDF generated successfully!");
+    } catch (error) {
+      console.error("Error generating PDF:", error);
+    }
+  };
 
   useEffect(() => {
     const startTime = window.performance.now();
@@ -171,8 +210,11 @@ const D3CombinationChart = () => {
 
   return (
     <>
-      <div style={{ overflowX: "scroll" }}>
+      <div style={{ overflowX: "scroll", position: "relative" }}>
         <div ref={chartRef}></div>
+        <button onClick={exportToPDF} style={{ margin: "20px" }}>
+          Export to PDF
+        </button>
       </div>
       <ToastContainer />
     </>
