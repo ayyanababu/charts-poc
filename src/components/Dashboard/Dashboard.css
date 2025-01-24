@@ -79,8 +79,12 @@
 }
 
 .ghost {
-  opacity: 0.6;
-  background-color: #ff9800;
+  opacity: 1;
+  background-color: #75d4fe;
+
+  * {
+    opacity: 0;
+  }
 }
 
 .drag-handle {
