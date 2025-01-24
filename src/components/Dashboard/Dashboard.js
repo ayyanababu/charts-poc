@@ -3,6 +3,9 @@ import { ReactSortable } from "react-sortablejs";
 import "./Dashboard.css"; // Optional styles for the grid
 import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
+import { RxDragHandleDots2 } from "react-icons/rx";
+import { AiOutlineExpandAlt } from "react-icons/ai";
+import { AiOutlineShrink } from "react-icons/ai";
 
 // Import the required Highcharts modules
 // import HighchartsMore from 'highcharts/highcharts-more';
@@ -44,6 +47,8 @@ import HighchartsReact from "highcharts-react-official";
 
 const Dashboard = () => {
     const containerRefs = useRef([]); // Reference to each card container
+
+    const [expandedIdx, setExpandedIdx] = useState({});
 
   const [items, setItems] = useState([
     { id: 1, name: "Line Chart", type: "line" },
@@ -237,8 +242,31 @@ useEffect(() => {
         onEnd={handleEnd}
       >
         {items.map((item, index) => (
-          <div key={item.id} className="sortable-item">
-            <div className="drag-handle">Drag</div>
+          <div key={item.id} className={`sortable-item ${expandedIdx[index] ? "expanded" : "" }` }>
+            <div className="card-options">
+              {
+                expandedIdx[index] ? (                  
+                  <button className="shrink-button" onClick={() => setExpandedIdx(prev => ({
+                    ...prev,
+                    [index]: false
+                  }))}>
+                    <AiOutlineShrink />
+                  </button>
+                ) : (
+                  <button className="expand-button" onClick={() =>  setExpandedIdx(prev => ({
+                    ...prev,
+                    [index]: true
+                  }))}>
+                    <AiOutlineExpandAlt />
+                  </button>
+                )
+              }
+
+              <div className="drag-handle">
+                <RxDragHandleDots2 />
+              </div>
+            </div>
+
             <div style={{
               height: "80%",
               width: "80%"
