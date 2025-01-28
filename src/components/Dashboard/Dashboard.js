@@ -3,6 +3,9 @@ import { ReactSortable } from "react-sortablejs";
 import "./Dashboard.css"; // Optional styles for the grid
 import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
+import { RxDragHandleDots2 } from "react-icons/rx";
+import { AiOutlineExpandAlt } from "react-icons/ai";
+import { AiOutlineShrink } from "react-icons/ai";
 
 // Import the required Highcharts modules
 // import HighchartsMore from 'highcharts/highcharts-more';
@@ -45,6 +48,8 @@ import HighchartsReact from "highcharts-react-official";
 const Dashboard = () => {
     const containerRefs = useRef([]); // Reference to each card container
 
+    const [expandedIdx, setExpandedIdx] = useState({});
+
   const [items, setItems] = useState([
     { id: 1, name: "Line Chart", type: "line" },
     { id: 2, name: "Column Chart", type: "column" },
@@ -59,11 +64,11 @@ const Dashboard = () => {
 
   useEffect(() => {
     const handleResize = () => {
-      containerRefs.current.forEach((ref) => {
-        if (ref && ref.chart) {
-          ref.chart.reflow(); // Trigger Highcharts to recalculate sizes
-        }
-      });
+        containerRefs.current.forEach((ref) => {
+          if (ref && ref.chart) {
+            ref.chart.reflow(); // Trigger Highcharts to recalculate sizes
+          }
+        });
     };
 
     window.addEventListener("resize", handleResize); // Listen for window resize
@@ -128,7 +133,7 @@ useEffect(() => {
     switch (type) {
       case "donut":
         return {
-          chart: { type: "pie", height: "100%", reflow: true },
+          chart: { type: "pie",  reflow: true },
           title: { text: title, style: { fontSize: '10px'} },
           plotOptions: {
             pie: {
@@ -147,7 +152,7 @@ useEffect(() => {
         };
       case "combination":
         return {
-          chart: { zoomType: "xy", height: "100%", reflow: true },
+          chart: { zoomType: "xy",  reflow: true },
           title: { text: title, style: { fontSize: '10px'} },
           xAxis: { categories: ["Jan", "Feb", "Mar", "Apr"] },
           yAxis: [{ title: { text: "Values" } }],
@@ -166,7 +171,7 @@ useEffect(() => {
         };
       case "stackedBar":
         return {
-          chart: { type: "bar", height: "100%", reflow: true },
+          chart: { type: "bar",  reflow: true },
           title: { text: title, style: { fontSize: '10px'} },
           xAxis: {
             categories: ["Apples", "Oranges", "Pears", "Bananas"],
@@ -197,7 +202,7 @@ useEffect(() => {
         };
       default:
         return {
-          chart: { type, height: "100%", reflow: true },
+          chart: { type,  reflow: true },
           title: { text: title, style: { fontSize: '10px'} },
           series: [
             {
@@ -237,21 +242,51 @@ useEffect(() => {
         onEnd={handleEnd}
       >
         {items.map((item, index) => (
-          <div key={item.id} className="sortable-item">
-            <div className="drag-handle">Drag</div>
-            <HighchartsReact
-              key={item.id}
-              highcharts={Highcharts}
-              options={getChartOptions(item.type, item.name)}
-              containerProps={{
-                style: {
-                  height: "80%",
-                  width: "80%",
-                },
-              }}
-              ref={(el) => (containerRefs.current[index] = el)}
-              allowChartUpdate={true}
-            />
+          <div key={item.id} className={`sortable-item ${expandedIdx[index] ? "expanded" : "" }` }>
+            <div className="card-options">
+              {
+                expandedIdx[index] ? (                  
+                  <button className="shrink-button" onClick={() => setExpandedIdx(prev => ({
+                    ...prev,
+                    [index]: false
+                  }))}>
+                    <AiOutlineShrink />
+                  </button>
+                ) : (
+                  <button className="expand-button" onClick={() =>  setExpandedIdx(prev => ({
+                    ...prev,
+                    [index]: true
+                  }))}>
+                    <AiOutlineExpandAlt />
+                  </button>
+                )
+              }
+
+              <div className="drag-handle">
+                <RxDragHandleDots2 />
+              </div>
+            </div>
+
+            <div style={{
+              height: "80%",
+              width: "80%"
+            }}>
+              <HighchartsReact
+                key={item.id}
+                highcharts={Highcharts}
+                options={getChartOptions(item.type, item.name)}
+                containerProps={{
+                  style: {
+                    height: "100%",
+                    width: "100%",
+                    maxHeight: "100%",
+                    maxWidth: "100%",
+                  },
+                }}
+                ref={(el) => (containerRefs.current[index] = el)}
+                allowChartUpdate={true}
+              />
+            </div>
           </div>
         ))}
       </ReactSortable>
