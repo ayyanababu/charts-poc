@@ -9,8 +9,12 @@ import ChartjsLargeDataChart from './Chartjs/LargeDataChart'
 import RechartsCombinationChart from './Recharts/CombinedChart'
 import RechartsDonutChart from './Recharts/DonutChart'
 import RechartLargeDatasetChart from './Recharts/LargeDataChart'
+import { NivoCombinationChart, NivoDonutChart, NivoLargeDataChart } from './Nivo/NivoComponents'
+import VisxDonutChart from './Visx/VisxDonutChart'
+import VisxCombinationChart from './Visx/VisxCombinedChart'
+import VisxLargeDataChart from './Visx/LargeDataChart'
 
-export const MAX_POINTS = 5000;
+export const MAX_POINTS = 500;
 
 export default function ChartDemos() {
   return (
@@ -45,6 +49,28 @@ export default function ChartDemos() {
           <RechartsCombinationChart />
           <RechartsDonutChart />
           <RechartLargeDatasetChart />
+        </div>
+      </div>
+
+      <div className='flex flex-col gap-2'> 
+        <h1>
+          Nivo
+        </h1>
+        <div className='flex flex-row gap-2' style={{maxWidth: "100%"}}>
+          <NivoCombinationChart />
+          <NivoDonutChart />
+          <NivoLargeDataChart />
+        </div>
+      </div>
+
+      <div className='flex flex-col gap-2'> 
+        <h1>
+          Visx
+        </h1>
+        <div className='flex flex-row gap-2' style={{maxWidth: "100%"}}>
+          <VisxCombinationChart />
+          <VisxDonutChart />
+          <VisxLargeDataChart />
         </div>
       </div>
     </div>
