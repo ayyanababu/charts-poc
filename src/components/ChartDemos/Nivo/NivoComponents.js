@@ -36,7 +36,15 @@ export const NivoCombinationChart = () => {
         padding={0.3}
         valueScale={{ type: 'linear' }}
         indexScale={{ type: 'band', round: true }}
-        colors={{ scheme: 'set2' }}
+        colors={[
+          '#9bc5ef',
+          '#50c1c2',
+          '#fad176',
+          '#407abc',
+          '#93a3bc',
+          '#f9804e',
+          '#fed8cc',
+        ]}
         axisLeft={{
           legend: 'Sales (USD)',
           legendPosition: 'middle',
@@ -55,16 +63,31 @@ export const NivoCombinationChart = () => {
         legends={[
           {
             dataFrom: 'keys',
-            anchor: 'top-right',
-            direction: 'column',
-            translateX: 120,
-            itemsSpacing: 2,
-            itemWidth: 100,
+            anchor: 'top',
+            direction: 'row',
+            justify: false,
+            translateX: 0,
+            translateY: -30,
+            itemsSpacing: 20,
+            itemWidth: 80,
             itemHeight: 20,
             itemDirection: 'left-to-right',
-            symbolSize: 20,
-            effects: [{ on: 'hover', style: { itemOpacity: 1 } }],
-          },
+            itemOpacity: 0.85,
+            symbolSize: 18,
+            symbolShape: 'circle',
+            effects: [
+              {
+                on: 'hover',
+                style: {
+                  itemOpacity: 1,
+                  itemBackground: 'rgba(0, 0, 0, .03)',
+                  itemTextColor: '#000',
+                  scale: 1.1,
+                  transition: 'transform 200ms'
+                }
+              }
+            ]
+          }
         ]}
       />
     </div>
@@ -84,16 +107,39 @@ export const NivoDonutChart = () => {
         data={data}
         margin={{ top: 40, right: 80, bottom: 80, left: 80 }}
         innerRadius={0.6}
-        colors={{ scheme: 'nivo' }}
+        colors={[
+          '#9bc5ef',
+          '#50c1c2',
+          '#fad176',
+          '#407abc',
+          '#93a3bc',
+          '#f9804e',
+          '#fed8cc',]}
         radialLabelsSkipAngle={10}
         enableArcLinkLabels={false}
+        legends={[
+          {
+            anchor: 'top',
+            direction: 'row',
+            justify: false,
+            translateX: 0,
+            translateY: -30,
+            itemsSpacing: 20,
+            itemWidth: 80,
+            itemHeight: 20,
+            itemDirection: 'left-to-right',
+            itemOpacity: 0.85,
+            symbolSize: 18,
+            symbolShape: 'circle'
+          }
+        ]}
       />
     </div>
   );
 };
 
 export const NivoLargeDataChart = () => {
-  const MAX_POINTS = 1000; // Replace MAX_POINTS with an actual value
+  const MAX_POINTS = 1000;
   const data = Array.from({ length: MAX_POINTS }, (_, i) => ({
     x: i,
     y: Math.random() * 100,
@@ -103,10 +149,18 @@ export const NivoLargeDataChart = () => {
     <div style={chartContainerStyle}>
       <ResponsiveLine
         data={[{ id: 'sensor', data }]}
-        margin={{ top: 50, right: 50, bottom: 50, left: 60 }}
+        margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
         xScale={{ type: 'linear' }}
         yScale={{ type: 'linear', min: 0, max: 100 }}
         enablePoints={false}
+        colors={[
+          '#9bc5ef',
+          '#50c1c2',
+          '#fad176',
+          '#407abc',
+          '#93a3bc',
+          '#f9804e',
+          '#fed8cc',]}
         useMesh={true}
         axisLeft={{
           legend: 'Value',
@@ -118,6 +172,32 @@ export const NivoLargeDataChart = () => {
           legendPosition: 'middle',
           legendOffset: 40,
         }}
+        legends={[
+          {
+            anchor: 'top',
+            direction: 'row',
+            justify: false,
+            translateX: 0,
+            translateY: -30,
+            itemsSpacing: 20,
+            itemWidth: 80,
+            itemHeight: 20,
+            itemDirection: 'left-to-right',
+            itemOpacity: 0.85,
+            symbolSize: 18,
+            symbolShape: 'circle',
+            effects: [
+              {
+                on: 'hover',
+                style: {
+                  itemOpacity: 1,
+                  itemBackground: 'rgba(0, 0, 0, .03)',
+                  itemTextColor: '#000'
+                }
+              }
+            ]
+          }
+        ]}
       />
     </div>
   );

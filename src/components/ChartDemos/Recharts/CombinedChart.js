@@ -16,12 +16,12 @@ const RechartsCombinationChart = () => (
       <YAxis yAxisId="right" orientation="right" />
       <Tooltip />
       <Legend />
-      <Bar yAxisId="left" dataKey="sales" fill="#8884d8" name="Sales (USD)" />
+      <Bar yAxisId="left" dataKey="sales" fill="#9bc5ef" name="Sales (USD)" />
       <Line
         yAxisId="right"
         type="monotone"
         dataKey="conversion"
-        stroke="#82ca9d"
+        stroke="#50c1c2"
         name="Conversion Rate (%)"
         strokeWidth={2}
       />

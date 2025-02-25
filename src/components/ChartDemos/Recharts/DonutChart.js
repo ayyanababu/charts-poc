@@ -9,7 +9,14 @@ const data = [
 ];
 
 const RechartsDonutChart = () => {
-  const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#AF19FF'];
+  const COLORS = [
+    '#9bc5ef',
+    '#50c1c2',
+    '#fad176',
+    '#407abc',
+    '#93a3bc',
+    '#f9804e',
+    '#fed8cc',];
 
   return (
     <ResponsiveContainer width="100%" height={400} style={{ border: "1px solid black" }}>

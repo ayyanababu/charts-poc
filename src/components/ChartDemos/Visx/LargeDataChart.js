@@ -7,6 +7,16 @@ import { localPoint } from "@visx/event";
 import { bisector } from "d3-array";
 import { MAX_POINTS } from "../ChartDemos";
 
+const chartColors = [
+  '#9bc5ef',
+  '#50c1c2',
+  '#fad176',
+  '#407abc',
+  '#93a3bc',
+  '#f9804e',
+  '#fed8cc',
+];
+
 const generateData = (length) => {
   const data = [];
   for (let i = 0; i < length; i++) {
@@ -90,7 +100,7 @@ const VisxLargeDataChart = ({ width = 500, height = 500 }) => {
             data={data}
             x={(d) => xScale(getDate(d))}
             y={(d) => yScale(getValue(d))}
-            stroke="#1f77b4"
+            stroke={chartColors[0]} // Updated: use the first provided color
             strokeWidth={2}
             curve={null}
             onMouseMove={handleMouseMove}

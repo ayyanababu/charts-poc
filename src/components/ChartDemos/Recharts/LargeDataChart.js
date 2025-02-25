@@ -24,7 +24,7 @@ const RechartLargeDatasetChart = () => {
         <Line
           type="monotone"
           dataKey="value"
-          stroke="#8884d8"
+          stroke='#f9804e'
           dot={false}
           strokeWidth={1}
         />

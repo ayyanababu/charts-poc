@@ -13,13 +13,16 @@ import { NivoCombinationChart, NivoDonutChart, NivoLargeDataChart } from './Nivo
 import VisxDonutChart from './Visx/VisxDonutChart'
 import VisxCombinationChart from './Visx/VisxCombinedChart'
 import VisxLargeDataChart from './Visx/LargeDataChart'
+import RechartsStackedBarChart from './Recharts/StackedBarChart'
+import VisxStackedBarChart from './Visx/StackedBarChart'
+import NivoStackedBarChart from './Nivo/StackedBarChart'
 
 export const MAX_POINTS = 500;
 
 export default function ChartDemos() {
   return (
     <div className='p-2 flex flex-col gap-4'>
-      <div className='flex flex-col gap-2'> 
+      {/* <div className='flex flex-col gap-2'> 
         <h1>
           HighCharts
         </h1>
@@ -39,7 +42,7 @@ export default function ChartDemos() {
           <ChartjsDonutChart />
           <ChartjsLargeDataChart />
         </div>
-      </div>
+      </div> */}
 
       <div className='flex flex-col gap-2'> 
         <h1>
@@ -48,7 +51,8 @@ export default function ChartDemos() {
         <div className='flex flex-row gap-2' style={{maxWidth: "100%"}}>
           <RechartsCombinationChart />
           <RechartsDonutChart />
-          <RechartLargeDatasetChart />
+          {/* <RechartLargeDatasetChart /> */}
+          <RechartsStackedBarChart/>
         </div>
       </div>
 
@@ -59,7 +63,8 @@ export default function ChartDemos() {
         <div className='flex flex-row gap-2' style={{maxWidth: "100%"}}>
           <NivoCombinationChart />
           <NivoDonutChart />
-          <NivoLargeDataChart />
+          {/* <NivoLargeDataChart /> */}
+          <NivoStackedBarChart/>
         </div>
       </div>
 
@@ -70,7 +75,8 @@ export default function ChartDemos() {
         <div className='flex flex-row gap-2' style={{maxWidth: "100%"}}>
           <VisxCombinationChart />
           <VisxDonutChart />
-          <VisxLargeDataChart />
+          {/* <VisxLargeDataChart /> */}
+          <VisxStackedBarChart />
         </div>
       </div>
     </div>

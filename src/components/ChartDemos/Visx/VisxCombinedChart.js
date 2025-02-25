@@ -7,6 +7,16 @@ import { AxisBottom, AxisLeft } from "@visx/axis";
 import { Text } from "@visx/text";
 import { curveNatural } from "@visx/curve"
 
+const chartColors = [
+  '#9bc5ef',
+  '#50c1c2',
+  '#fad176',
+  '#407abc',
+  '#93a3bc',
+  '#f9804e',
+  '#fed8cc',
+];
+
 const data = Array.from({ length: 12 }, (_, i) => {
     const val = Math.floor(Math.random() * 100) + 20
   return ({
@@ -17,7 +27,7 @@ const data = Array.from({ length: 12 }, (_, i) => {
 
 const width = 500;
 const height = 500;
-const margin = { top: 40, right: 70, bottom: 60, left: 60 };
+const margin = { top: 60, right: 70, bottom: 60, left: 60 }; // Increased top margin to accommodate legends
 
 const xScale = scaleBand({
   domain: data.map((d) => d.label),
@@ -36,23 +46,77 @@ const yScaleLine = scaleLinear({
 });
 
 const VisxCombinedChart = () => {
+  // Define the legends
+  const legends = [
+    { label: 'Revenue', color: chartColors[0], type: 'bar' },
+    { label: 'Conversion Rate', color: chartColors[1], type: 'line' },
+  ];
+
   return (
     <svg width={width} height={height} style={{ 
       border: "1px solid black",
       overflow: "auto",
      }}>
       <Group>
+        {/* Chart title */}
+        <Text
+          x={width / 2}
+          y={20}
+          textAnchor="middle"
+          fontSize={16}
+          fontWeight="bold"
+          fill="#111827"
+        >
+          Combined Bar and Line Chart
+        </Text>
+
+        {/* Legends at top of chart */}
+        <Group>
+          {legends.map((legend, i) => (
+            <Group 
+              key={`legend-${i}`} 
+              top={30} 
+              left={width / 2 - 100 + i * 150}
+            >
+              {legend.type === 'bar' ? (
+                <rect 
+                  width={12} 
+                  height={12} 
+                  fill={legend.color}
+                  rx={2}
+                />
+              ) : (
+                <circle 
+                  r={6} 
+                  fill={legend.color}
+                  cx={6}
+                  cy={6}
+                />
+              )}
+              <Text
+                x={20}
+                y={10}
+                fontSize={12}
+                textAnchor="start"
+                fill="#6b7280"
+              >
+                {legend.label}
+              </Text>
+            </Group>
+          ))}
+        </Group>
+
         {data.map((d) => {
           const barX = xScale(d.label);
           const barHeight = height - margin.bottom - yScaleBar(d.bar);
           return (
             <Bar
               key={`bar-${d.label}`}
-              x={barX}XX
+              x={barX}
               y={yScaleBar(d.bar)}
               height={barHeight}
               width={xScale.bandwidth()}
-              fill="#4db6fc"
+              fill={chartColors[0]}
               rx={4}
             />
           );
@@ -62,7 +126,7 @@ const VisxCombinedChart = () => {
           data={data}
           x={(d) => xScale(d.label) + xScale.bandwidth() / 2}
           y={(d) => yScaleLine(d.line)}
-          stroke="#fd869f"
+          stroke={chartColors[1]}
           strokeWidth={3}
           curve={curveNatural}
         />
@@ -73,7 +137,7 @@ const VisxCombinedChart = () => {
             cx={xScale(d.label) + xScale.bandwidth() / 2}
             cy={yScaleLine(d.line)}
             r={5}
-            fill="#fd869f"
+            fill={chartColors[1]}
             stroke="#ffffff"
             strokeWidth={2}
           />
@@ -104,17 +168,6 @@ const VisxCombinedChart = () => {
             dy: "0.33em",
           })}
         />
-
-        <Text
-          x={width / 2}
-          y={margin.top / 2}
-          textAnchor="middle"
-          fontSize={16}
-          fontWeight="bold"
-          fill="#111827"
-        >
-          Combined Bar and Line Chart
-        </Text>
       </Group>
     </svg>
   );
