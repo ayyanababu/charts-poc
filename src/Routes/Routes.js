@@ -10,11 +10,12 @@ const AppRoutes = () => {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Dashboard />} />
+        
+        <Route path="/" element={<ChartDemos />} />
+        <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/d3/chartConversion" element={<ChartPage />} />
         <Route path="/d3/basic" element={<D3CombinationChart />} />
         <Route path="/hc/basic" element={<HighchartCombinationChart />} />
-        <Route path="/demo" element={<ChartDemos />} />
       </Routes>
     </Router>
   );
